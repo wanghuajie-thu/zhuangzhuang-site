@@ -47,7 +47,7 @@
 
         .header {
             text-align: center;
-            padding: 30px 0 60px;
+            padding: 30px 0 40px;
             position: relative;
         }
 
@@ -79,27 +79,17 @@
         }
 
         .chapter-card {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: var(--paper-color);
+            border-radius: 2px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
         }
 
         .chapter-header {
-            background: var(--paper-color);
-            padding: 24px 30px;
-            border-radius: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            border: 1px solid transparent;
-        }
-
-        .chapter-header:hover {
-            border-color: var(--subtle-border);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-        }
-
-        .chapter-header.expanded {
-            border-bottom: none;
-            border-radius: 2px 2px 0 0;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--subtle-border);
         }
 
         .chapter-header-top {
@@ -118,6 +108,7 @@
             border-radius: 50%;
             font-size: 13px;
             color: var(--light-ink);
+            text-align: center;
         }
 
         .chapter-date {
@@ -148,64 +139,23 @@
             border-radius: 20px;
         }
 
-        .expand-icon {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
-            color: var(--subtle-border);
-            transition: transform 0.3s ease;
-        }
-
-        .chapter-header.expanded .expand-icon {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
         .chapter-content {
-            display: none;
-            background: var(--paper-color);
-            padding: 40px 40px 50px;
-            border-radius: 0 0 2px 2px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
-            animation: slideDown 0.3s ease;
-        }
-
-        .chapter-content.show {
-            display: block;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            padding: 0;
         }
 
         .chapter-content h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 500;
             color: var(--ink-color);
-            margin: 40px 0 24px;
+            margin: 36px 0 20px;
             padding-left: 16px;
             border-left: 2px solid var(--accent-color);
-        }
-
-        .chapter-content h3 {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--ink-color);
-            margin: 32px 0 16px;
         }
 
         .chapter-content p {
             font-size: 15px;
             line-height: 2;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             text-align: justify;
             color: var(--light-ink);
         }
@@ -233,14 +183,14 @@
             text-align: center;
             color: var(--subtle-border);
             font-size: 12px;
-            margin: 60px 0;
+            margin: 50px 0;
             letter-spacing: 8px;
         }
 
         .scroll-bottom {
             text-align: center;
             padding: 40px 0;
-            margin-top: 40px;
+            margin-top: 60px;
         }
 
         .scroll-bottom-seal {
@@ -261,14 +211,14 @@
             .header h1 {
                 font-size: 26px;
             }
-            .chapter-content {
-                padding: 30px 25px;
-            }
             .scroll-container {
                 padding: 30px 20px 100px;
             }
-            .chapter-header {
-                padding: 20px;
+            .chapter-card {
+                padding: 30px 25px;
+            }
+            .chapter-content h2 {
+                font-size: 16px;
             }
         }
     </style>
@@ -283,32 +233,32 @@
             <p class="subtitle">看见自己 · 探索真实感受 · 建设内在力量</p>
         </header>
 
-        <!-- 章节循环 -->
+        <!-- 章节循环：直接显示，不折叠 -->
         
         <div class="chapter-card">
-            <div class="chapter-header expanded" onclick="toggleChapter({{@index}})">
+            <div class="chapter-header">
                 <div class="chapter-header-top">
                     <div class="chapter-number">壹</div>
-                    <div class="chapter-date">二〇二六年五月七日</div>
+                    <div class="chapter-date">二〇二六年六月七日</div>
                 </div>
-                <h2 class="chapter-title">MBTI测试后的个人能量充电方式整理与探讨</h2>
+                <h2 class="chapter-title">关于期末复习规划与反馈能力的学习辅导</h2>
                 <div class="chapter-tags">
                     {{#each tags}}
                     <span class="tag"></span>
                     
         <div class="chapter-card">
-            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+            <div class="chapter-header">
                 <div class="chapter-header-top">
                     <div class="chapter-number">贰</div>
-                    <div class="chapter-date">二〇二六年五月十四日</div>
+                    <div class="chapter-date">二〇二六年五月二十四日</div>
                 </div>
-                <h2 class="chapter-title">AI辅助学习课：时间管理框架讲解与Claude数学学习演示</h2>
+                <h2 class="chapter-title">科学合理的上进心与目标管理方法探讨</h2>
                 <div class="chapter-tags">
                     {{#each tags}}
                     <span class="tag"></span>
                     
         <div class="chapter-card">
-            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+            <div class="chapter-header">
                 <div class="chapter-header-top">
                     <div class="chapter-number">叁</div>
                     <div class="chapter-date">二〇二六年五月二十四日</div>
@@ -319,32 +269,31 @@
                     <span class="tag"></span>
                     
         <div class="chapter-card">
-            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+            <div class="chapter-header">
                 <div class="chapter-header-top">
                     <div class="chapter-number">肆</div>
-                    <div class="chapter-date">二〇二六年五月二十四日</div>
+                    <div class="chapter-date">二〇二六年五月十四日</div>
                 </div>
-                <h2 class="chapter-title">科学合理的上进心与目标管理方法探讨</h2>
+                <h2 class="chapter-title">AI辅助学习课：时间管理框架讲解与Claude数学学习演示</h2>
                 <div class="chapter-tags">
                     {{#each tags}}
                     <span class="tag"></span>
                     
         <div class="chapter-card">
-            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+            <div class="chapter-header">
                 <div class="chapter-header-top">
                     <div class="chapter-number">伍</div>
-                    <div class="chapter-date">二〇二六年六月七日</div>
+                    <div class="chapter-date">二〇二六年五月七日</div>
                 </div>
-                <h2 class="chapter-title">关于期末复习规划与反馈能力的学习辅导</h2>
+                <h2 class="chapter-title">MBTI测试后的个人能量充电方式整理与探讨</h2>
                 <div class="chapter-tags">
                     {{#each tags}}
                     <span class="tag"></span>
                     
                 </div>
-                <div class="expand-icon">▼</div>
             </div>
 
-            <div class="chapter-content " id="content{{@index}}">
+            <div class="chapter-content">
                 
             </div>
         </div>
@@ -356,14 +305,5 @@
     </div>
 
     <div class="scroll-top" style="height: 40px; background: linear-gradient(to top, #D4C4A8, var(--bg-color));"></div>
-
-    <script>
-        function toggleChapter(index) {
-            const headers = document.querySelectorAll('.chapter-header');
-            const contents = document.querySelectorAll('.chapter-content');
-            headers[index].classList.toggle('expanded');
-            contents[index].classList.toggle('show');
-        }
-    </script>
 </body>
 </html>
