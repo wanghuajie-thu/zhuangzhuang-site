@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>壮壮对话录</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-color: #F5F0E6;
+            --paper-color: #FAF8F3;
+            --ink-color: #2C2C2C;
+            --light-ink: #5A5A5A;
+            --accent-color: #C94C4C;
+            --subtle-border: #E8E0D0;
+            --cinnabar: #B83B3B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+            background: var(--bg-color);
+            color: var(--ink-color);
+            line-height: 1.9;
+            letter-spacing: 0.05em;
+        }
+
+        .scroll-top {
+            height: 60px;
+            background: linear-gradient(to bottom, #D4C4A8, var(--bg-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .scroll-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 30px 120px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0 60px;
+            position: relative;
+        }
+
+        .header-seal {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--cinnabar);
+            border-radius: 4px;
+            margin: 0 auto 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--cinnabar);
+            line-height: 1.2;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--ink-color);
+            margin-bottom: 12px;
+        }
+
+        .header .subtitle {
+            font-size: 13px;
+            color: var(--light-ink);
+        }
+
+        .chapter-card {
+            margin-bottom: 20px;
+        }
+
+        .chapter-header {
+            background: var(--paper-color);
+            padding: 24px 30px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .chapter-header:hover {
+            border-color: var(--subtle-border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+
+        .chapter-header.expanded {
+            border-bottom: none;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .chapter-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .chapter-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border: 1px solid var(--subtle-border);
+            border-radius: 50%;
+            font-size: 13px;
+            color: var(--light-ink);
+        }
+
+        .chapter-date {
+            font-size: 11px;
+            color: #8B7355;
+            letter-spacing: 0.1em;
+        }
+
+        .chapter-title {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--ink-color);
+            margin-bottom: 12px;
+        }
+
+        .chapter-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 10px;
+            color: #6B6B6B;
+            background: transparent;
+            padding: 3px 10px;
+            border: 1px solid var(--subtle-border);
+            border-radius: 20px;
+        }
+
+        .expand-icon {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--subtle-border);
+            transition: transform 0.3s ease;
+        }
+
+        .chapter-header.expanded .expand-icon {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .chapter-content {
+            display: none;
+            background: var(--paper-color);
+            padding: 40px 40px 50px;
+            border-radius: 0 0 2px 2px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
+            animation: slideDown 0.3s ease;
+        }
+
+        .chapter-content.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chapter-content h2 {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--ink-color);
+            margin: 40px 0 24px;
+            padding-left: 16px;
+            border-left: 2px solid var(--accent-color);
+        }
+
+        .chapter-content h3 {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--ink-color);
+            margin: 32px 0 16px;
+        }
+
+        .chapter-content p {
+            font-size: 15px;
+            line-height: 2;
+            margin-bottom: 24px;
+            text-align: justify;
+            color: var(--light-ink);
+        }
+
+        .chapter-content strong {
+            font-weight: 500;
+            color: var(--ink-color);
+        }
+
+        .quote-block {
+            padding: 24px 0;
+            margin: 32px 0;
+            border-top: 1px solid var(--subtle-border);
+            border-bottom: 1px solid var(--subtle-border);
+            text-align: center;
+        }
+
+        .quote-block p {
+            font-size: 16px;
+            color: var(--ink-color);
+            margin: 0;
+        }
+
+        .divider {
+            text-align: center;
+            color: var(--subtle-border);
+            font-size: 12px;
+            margin: 60px 0;
+            letter-spacing: 8px;
+        }
+
+        .scroll-bottom {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+
+        .scroll-bottom-seal {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            border: 2px solid #8B7355;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #8B7355;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 26px;
+            }
+            .chapter-content {
+                padding: 30px 25px;
+            }
+            .scroll-container {
+                padding: 30px 20px 100px;
+            }
+            .chapter-header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-top"></div>
+
+    <div class="scroll-container">
+        <header class="header">
+            <div class="header-seal">壮壮</div>
+            <h1>对话录</h1>
+            <p class="subtitle">看见自己 · 探索真实感受 · 建设内在力量</p>
+        </header>
+
+        <!-- 章节循环 -->
+        
+        <div class="chapter-card">
+            <div class="chapter-header expanded" onclick="toggleChapter({{@index}})">
+                <div class="chapter-header-top">
+                    <div class="chapter-number">壹</div>
+                    <div class="chapter-date">二〇二六年五月七日</div>
+                </div>
+                <h2 class="chapter-title">MBTI测试后的个人能量充电方式整理与探讨</h2>
+                <div class="chapter-tags">
+                    {{#each tags}}
+                    <span class="tag"></span>
+                    
+        <div class="chapter-card">
+            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+                <div class="chapter-header-top">
+                    <div class="chapter-number">贰</div>
+                    <div class="chapter-date">二〇二六年五月十四日</div>
+                </div>
+                <h2 class="chapter-title">AI辅助学习课：时间管理框架讲解与Claude数学学习演示</h2>
+                <div class="chapter-tags">
+                    {{#each tags}}
+                    <span class="tag"></span>
+                    
+        <div class="chapter-card">
+            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+                <div class="chapter-header-top">
+                    <div class="chapter-number">叁</div>
+                    <div class="chapter-date">二〇二六年五月二十四日</div>
+                </div>
+                <h2 class="chapter-title">认识自己的动力系统课程</h2>
+                <div class="chapter-tags">
+                    {{#each tags}}
+                    <span class="tag"></span>
+                    
+        <div class="chapter-card">
+            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+                <div class="chapter-header-top">
+                    <div class="chapter-number">肆</div>
+                    <div class="chapter-date">二〇二六年五月二十四日</div>
+                </div>
+                <h2 class="chapter-title">科学合理的上进心与目标管理方法探讨</h2>
+                <div class="chapter-tags">
+                    {{#each tags}}
+                    <span class="tag"></span>
+                    
+        <div class="chapter-card">
+            <div class="chapter-header " onclick="toggleChapter({{@index}})">
+                <div class="chapter-header-top">
+                    <div class="chapter-number">伍</div>
+                    <div class="chapter-date">二〇二六年六月七日</div>
+                </div>
+                <h2 class="chapter-title">关于期末复习规划与反馈能力的学习辅导</h2>
+                <div class="chapter-tags">
+                    {{#each tags}}
+                    <span class="tag"></span>
+                    
+                </div>
+                <div class="expand-icon">▼</div>
+            </div>
+
+            <div class="chapter-content " id="content{{@index}}">
+                
+            </div>
+        </div>
+        {{/each}}
+
+        <div class="scroll-bottom">
+            <div class="scroll-bottom-seal">待续</div>
+        </div>
+    </div>
+
+    <div class="scroll-top" style="height: 40px; background: linear-gradient(to top, #D4C4A8, var(--bg-color));"></div>
+
+    <script>
+        function toggleChapter(index) {
+            const headers = document.querySelectorAll('.chapter-header');
+            const contents = document.querySelectorAll('.chapter-content');
+            headers[index].classList.toggle('expanded');
+            contents[index].classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
